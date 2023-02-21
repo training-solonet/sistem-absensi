@@ -54,14 +54,14 @@
                     <tr style="text-align: center;">
                         <th>ID</th>
                         <th>Nama Karyawan</th>
-                        <th>Jabatan</th>
+                        <th>Jabatan Karyawan</th>
                         <th></th>
                     </tr>
                     @foreach($karyawan as $k)
                     <tr>
                         <td style="text-align: center;">{{ $k->id }}</td>
                         <td>{{ $k->nama_karyawan }}</td>
-                        <td>{{ $k->jabatan_id }}</td>
+                        <td>{{ $k->jabatan_id  }}</td>
                         <td style="text-align: center;">
                             <a class="btn btn-warning btn-sm" href="/karyawan/edit/{{ $k->id }}">Edit</a>
                             |
