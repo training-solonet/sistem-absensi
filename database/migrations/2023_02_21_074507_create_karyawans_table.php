@@ -14,11 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('karyawan', function (Blueprint $table) {
-            $table->increments ('id');
+            $table->id();
             $table->string('nama_karyawan');
-            //foreign keyy jabatan_id dari tabel jabatan
-            $table->integer('jabatan_id')->unsigned();
-            $table->foreign('jabatan_id')->references('id')->on('jabatan')->onDelete('cascade');
+            $table->foreignId('jabatan_id')->constrained('jabatan')->onDelete('cascade');
             $table->timestamps();
         });
     }

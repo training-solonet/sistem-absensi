@@ -10,7 +10,13 @@ class KaryawanController extends Controller
 {
     public function index()
     {
-        $karyawan = DB::table('karyawan')->get();
-        return view('data-karyawan', ['karyawan' => $karyawan]);
+        // Eloquent ORM
+        // Penggunaan model
+        $karyawan = Karyawan::with('jabatan')->get();
+
+        // return $karyawan;
+        return view('data-karyawan', [
+            'karyawan' => $karyawan
+        ]);
     }
 }

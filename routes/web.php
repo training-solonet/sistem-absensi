@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\Jabatan2Controller;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +24,7 @@ Route::get('/', function () {
 Route::get('/index', function(){
     return view('index');   
 });
+
 //CRUD Jabatan
 Route::get('/jabatan', [JabatanController::class,'index'])->name('jabatan');
 Route::get('/jabatan/tambah', [JabatanController::class,'tambah'])->name('tambahjabatan');
@@ -31,3 +34,6 @@ Route::get('/jabatan/cari', [JabatanController::class,'cari'])->name('carijabata
 
 //CRUD Karyawan
 Route::get('/karyawan', [KaryawanController::class,'index'])->name('viewDataKaryawan');
+
+// route untuk jabatan2
+Route::resource('jabatan2', Jabatan2Controller::class);

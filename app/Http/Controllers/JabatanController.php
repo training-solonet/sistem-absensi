@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -10,6 +11,16 @@ class JabatanController extends Controller
 {
     public function index()
     {
+
+        // Penggunaan ORM
+        // $jabatan = Jabatan::with('karyawan')->get();
+        // return $jabatan;
+
+        // Query Builder
+        $jabatan = DB::table('jabatan')->join('karyawan', 'jabatan.id', '=', 'karyawan.jabatan_id')->select('jabatan.*', 'karyawan.nama_karyawan')->get();
+        return $jabatan;
+
+
         // mengambil data dari table jabatan
         $jabatan = DB::table('jabatan')->get();
 

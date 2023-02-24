@@ -52,7 +52,7 @@
                                     <tr>
                                         <td style="text-align: center;">{{ $k->id }}</td>
                                         <td>{{ $k->nama_karyawan }}</td>
-                                        <td>{{ $k->jabatan_id  }}</td>
+                                        <td>{{ $k->jabatan->nama_jabatan  }}</td>
                                         <td style="text-align: center;">
                                             <a class="btn btn-warning btn-sm" href="/karyawan/edit/{{ $k->id }}">Edit</a>
                                             |
