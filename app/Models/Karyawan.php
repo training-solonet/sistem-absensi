@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Karyawan extends Model
 {
-    use HasFactory;
+    public function jabatan()
+    {
+        return $this->belongsTo('App\Models\Jabatan');
+    }
 }

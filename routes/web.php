@@ -19,6 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/index', function(){
+    return view('index');   
+});
 //CRUD Jabatan
 Route::get('/jabatan', [JabatanController::class,'index'])->name('jabatan');
 Route::get('/jabatan/tambah', [JabatanController::class,'tambah'])->name('tambahjabatan');
@@ -27,4 +30,4 @@ Route::get('/jabatan/hapus/{id}', [JabatanController::class,'hapus'])->name('hap
 Route::get('/jabatan/cari', [JabatanController::class,'cari'])->name('carijabatan');
 
 //CRUD Karyawan
-Route::get('/karyawan', [KaryawanController::class,'index'])->name('karyawan');
+Route::get('/karyawan', [KaryawanController::class,'index'])->name('viewDataKaryawan');

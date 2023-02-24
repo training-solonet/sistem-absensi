@@ -1,57 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Absensi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>E-Absensi</title>
+    @include('template.head')
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="">Sistem Absensi</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-current="page" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/jabatan">Jabatan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/karyawan">Karyawan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Absensi</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container" style="margin-top: 50px; width: 800px; height: auto;">
-        <h2>Tambah Data Jabatan</h2>
-        <div class="card">
-            <div class="card-body">
-                <form action="/jabatan/store" method="post">
-                    {{ csrf_field() }}
-                    <div class="row mb-3">
-                        <label for="nama_jabatan" class="col-sm-2 col-form-label">Nama Jabatan</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_jabatan">
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @include('template.sidebar')
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                @include('template.topbar')
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Form Tambah Data Jabatan</h6>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="/jabatan/store" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="row mb-3">
+                                        <label for="nama_jabatan" class="col-sm-2 col-form-label">Nama Jabatan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="nama_jabatan">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tambah</button>
+                                    <button type="reset" class="btn btn-warning">Reset</button>
+                                    <input type="button" class="btn btn-danger" style="float: right;" value="Go Back" onclick="history.back(-1)" />
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                    <button type="reset" class="btn btn-warning">Reset</button>
-                    <input type="button" class="btn btn-danger" style="float: right;" value="Go Back" onclick="history.back(-1)" />
-                </form>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            @include('template.footer')
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
