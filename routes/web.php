@@ -31,3 +31,5 @@ Route::get('/jabatan/cari', [JabatanController::class,'cari'])->name('carijabata
 
 //CRUD Karyawan
 Route::get('/karyawan', [KaryawanController::class,'index'])->name('viewDataKaryawan');
+Route::get('/karyawan/tambah', [KaryawanController::class,'tambah'])->name('tambahDataKaryawan');
+Route::post('/karyawan/store', [KaryawanController::class,'store'])->name('prosestambahKaryawan');

@@ -27,48 +27,37 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Karyawan</h1>
-                    <p class="mb-4">Berisi tentang Semua Karyawan beserta Jabatannya</p>
-
-                    <!-- DataTales  -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Karyawan</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Form Tambah Data Karyawan</h6>
                         </div>
-                        <div class="card-body">
-                        <a href="/karyawan/tambah"> + Tambah Karyawan</a>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr style="text-align: center;">
-                                            <th>ID</th>
-                                            <th>Nama Karyawan</th>
-                                            <th>Jabatan Karyawan</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    @foreach($karyawan as $k)
-                                    <tr>
-                                        <td style="text-align: center;">{{ $k->id }}</td>
-                                        <td>{{ $k->nama_karyawan }}</td>
-                                        <td>{{ $k->jabatan->nama_jabatan  }}</td>
-                                        <td style="text-align: center;">
-                                            <a class="btn btn-warning btn-sm" href="/karyawan/edit/{{ $k->id }}">Edit</a>
-                                            |
-                                            <a class="btn btn-danger btn-sm" href="/karyawan/hapus/{{ $k->id }}">Hapus</a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </table>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="/karyawan/store" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="row mb-3">
+                                        <label for="nama_karyawan" class="col-sm-2 col-form-label">Nama Karyawan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="nama_karyawan">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="nama_jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+                                        <div class="col-sm-10">
+                                            @foreach($jabatan as $j)
+                                            <input type="radio" id="{{ $j->id }}" name="nama_jabatan" value="{{ $j->nama_jabatan  }}">
+                                            <label for="{{ $j->id }}">{{ $j->nama_jabatan  }}</label><br>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tambah</button>
+                                    <button type="reset" class="btn btn-warning">Reset</button>
+                                    <input type="button" class="btn btn-danger" style="float: right;" value="Go Back" onclick="history.back(-1)" />
+                                </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
