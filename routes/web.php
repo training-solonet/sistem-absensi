@@ -33,3 +33,6 @@ Route::get('/jabatan/cari', [JabatanController::class,'cari'])->name('carijabata
 Route::get('/karyawan', [KaryawanController::class,'index'])->name('viewDataKaryawan');
 Route::get('/karyawan/tambah', [KaryawanController::class,'tambah'])->name('tambahDataKaryawan');
 Route::post('/karyawan/store', [KaryawanController::class,'store'])->name('prosestambahKaryawan');
+Route::get('/karyawan/edit/{id}', [KaryawanController::class,'edit'])->name('editDataKaryawan');
+Route::post('/karyawan/update',[KaryawanController::class,'update']);
+Route::get('/karyawan/hapus/{id}',[KaryawanController::class,'hapus']);

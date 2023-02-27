@@ -29,16 +29,17 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Form Tambah Data Karyawan</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Form Edit Data Karyawan</h6>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <form action="/karyawan/store" method="post">
+                                <form action="/karyawan/update" method="post">
+                                <input type="hidden" name="id" value="{{ $karyawan->id }}"> <br/>
                                     {{ csrf_field() }}
                                     <div class="row mb-3">
                                         <label for="nama_karyawan" class="col-sm-2 col-form-label">Nama Karyawan</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="nama_karyawan">
+                                            <input type="text" class="form-control" name="nama_karyawan" value="{{ $karyawan->nama_karyawan }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -47,7 +48,9 @@
                                             <select id="jabatan_id" name="jabatan_id" class="select2bs4 form-control">
                                                 <option value="">-- Pilih Jabatan --</option>
                                                 @foreach ($jabatan as $data)
-                                                <option value="{{ $data->id }}">{{ $data->nama_jabatan }}</option>
+                                                <option value="{{ $data->id }}" @if ($karyawan->jabatan_id == $data->id)
+                                                    selected
+                                                    @endif>{{ $data->nama_jabatan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Karyawan extends Model
 {
     protected $table = 'karyawan';
-    protected $fillable = ['id','nama_karyawan','id_jabatan'];
+    protected $fillable = ['id','nama_karyawan','jabatan_id'];
     
     public function jabatan()
     {
