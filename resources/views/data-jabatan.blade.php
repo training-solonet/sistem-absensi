@@ -38,7 +38,42 @@
                             <h6 class="m-0 font-weight-bold text-primary">Data Jabatan</h6>
                         </div>
                         <div class="card-body">
-                            <a href="/jabatan/tambah"> + Tambah Jabatan</a>
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <!-- <a href="/jabatan/tambah"> + Tambah Jabatan</a> -->
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                        <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Jabatan
+                                    </button>
+                                </h3>
+                            </div>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Tambah Data Jabatan</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('jabatan.store') }}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                {{ csrf_field() }}
+                                                <div class="row mb-3">
+                                                    <label for="nama_jabatan" class="col-sm-2 col-form-label">Nama Jabatan</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="nama_jabatan" style="text-transform:uppercase">
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</button>
+                                            <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
