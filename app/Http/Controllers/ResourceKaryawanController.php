@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Karyawan;
+use App\Models\Jabatan;
 
-class JabatanController2 extends Controller
+class ResourceKaryawanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +16,10 @@ class JabatanController2 extends Controller
      */
     public function index()
     {
-        // mengambil data dari table jabatan
-        $jabatan = DB::table('jabatan')->get();
-
-        // mengirim data pegawai ke view index
-        return view('data-jabatan', ['jabatan' => $jabatan]);
+        //ORM
+        $jabatan = Jabatan::orderBy('nama_jabatan')->get();
+        $karyawan = Karyawan::with('jabatan')->get();
+        return view('data-karyawan', compact('jabatan', 'karyawan'));
     }
 
     /**
@@ -39,12 +40,14 @@ class JabatanController2 extends Controller
      */
     public function store(Request $request)
     {
-        // insert data ke table jabatan
-        DB::table('jabatan')->insert([
-            'nama_jabatan' => $request->nama_jabatan
+        // insert data ke table karyawan
+        Karyawan::create([
+            'nama_karyawan' => strtoupper($request->nama_karyawan),
+            'jabatan_id' => strtoupper($request->jabatan_id)
         ]);
-        // alihkan halaman ke halaman jabatan
-        return redirect('/jabatan');
+
+        // alihkan halaman ke halaman karyawan
+        return redirect('/karyawan');
     }
 
     /**
@@ -66,7 +69,9 @@ class JabatanController2 extends Controller
      */
     public function edit($id)
     {
-        //
+        $karyawan = Karyawan::findorfail($id);
+        $jabatan = Jabatan::all();
+        return view('edit-karyawan', compact('karyawan', 'jabatan'));
     }
 
     /**
@@ -78,7 +83,14 @@ class JabatanController2 extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $karyawan = Karyawan::findorfail($request->id);
+        $karyawan_data = [
+            'nama_karyawan' => strtoupper($request->nama_karyawan),
+            'jabatan_id' => strtoupper($request->jabatan_id)
+        ];
+        $karyawan->update($karyawan_data);
+        return redirect('/karyawan');
+    }
     }
 
     /**
@@ -89,9 +101,10 @@ class JabatanController2 extends Controller
      */
     public function destroy($id)
     {
-        DB::table('jabatan')->where('id', $id)->delete();
+        // menghapus data pegawai berdasarkan id yang dipilih
+        DB::table('karyawan')->where('id', $id)->delete();
 
         // alihkan halaman ke halaman pegawai
-        return redirect('/jabatan');
+        return redirect('/karyawan');
     }
 }

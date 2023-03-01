@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\JabatanController2;
-use App\Http\Controllers\KaryawanController;
+//use App\Http\Controllers\JabatanController;
+//use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\CobaController;
+use App\Http\Controllers\ResourceKaryawanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,13 +31,18 @@ Route::get('/index', function(){
 // Route::get('/jabatan/hapus/{id}', [JabatanController::class,'hapus'])->name('hapusjabatan');
 // Route::get('/jabatan/cari', [JabatanController::class,'cari'])->name('carijabatan');
 
-//CRUD Karyawan
-Route::get('/karyawan', [KaryawanController::class,'index'])->name('viewDataKaryawan');
-Route::get('/karyawan/tambah', [KaryawanController::class,'tambah'])->name('tambahDataKaryawan');
-Route::post('/karyawan/store', [KaryawanController::class,'store'])->name('prosestambahKaryawan');
-Route::get('/karyawan/edit/{id}', [KaryawanController::class,'edit'])->name('editDataKaryawan');
-Route::post('/karyawan/update',[KaryawanController::class,'update']);
-Route::get('/karyawan/hapus/{id}',[KaryawanController::class,'hapus']);
-
 //CRUD Jabatan Resource
-Route::resource('jabatan', JabatanController2::class);
+Route::resource('jabatan', CobaController::class);
+
+// //CRUD Karyawan
+// Route::get('/karyawan', [KaryawanController::class,'index'])->name('viewDataKaryawan');
+// Route::get('/karyawan/tambah', [KaryawanController::class,'tambah'])->name('tambahDataKaryawan');
+// Route::post('/karyawan/store', [KaryawanController::class,'store'])->name('prosestambahKaryawan');
+// Route::get('/karyawan/edit/{id}', [KaryawanController::class,'edit'])->name('editDataKaryawan');
+// Route::post('/karyawan/update',[KaryawanController::class,'update']);
+// Route::get('/karyawan/hapus/{id}',[KaryawanController::class,'hapus']);
+
+//CRUD Karyawan Resource
+Route::resource('karyawan', ResourceKaryawanController::class);
+
+

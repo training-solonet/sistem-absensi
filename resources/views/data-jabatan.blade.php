@@ -38,14 +38,12 @@
                             <h6 class="m-0 font-weight-bold text-primary">Data Jabatan</h6>
                         </div>
                         <div class="card-body">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <!-- <a href="/jabatan/tambah"> + Tambah Jabatan</a> -->
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                        <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Jabatan
-                                    </button>
-                                </h3>
-                            </div>
+                            <h3 class="card-title">
+                                <!-- <a href="/jabatan/tambah"> + Tambah Jabatan</a> -->
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Jabatan
+                                </button>
+                            </h3>
                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -88,9 +86,11 @@
                                         <td style="text-align: center;">{{ $j->id }}</td>
                                         <td>{{ $j->nama_jabatan }}</td>
                                         <td style="text-align: center;">
-                                            <a class="btn btn-warning btn-sm" href="/jabatan/edit/{{ $j->id }}">Edit</a>
-                                            |
-                                            <a class="btn btn-danger btn-sm" href="/jabatan/hapus/{{ $j->id }}">Hapus</a>
+                                            <form action="{{ route('jabatan.destroy', $j->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
