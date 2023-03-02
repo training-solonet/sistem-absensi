@@ -35,14 +35,14 @@
                     <!-- DataTales  -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Karyawan</h6>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title">
+                            <h5 class="m-0 font-weight-bold text-primary float-left">Data Karyawan</h5>
+                            <h3 class="card-title float-right">
                                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
                                     <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Karyawan
                                 </button>
                             </h3>
+                        </div>
+                        <div class="card-body">
                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -81,16 +81,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <div class="table table-stripped">
+                            <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
                                 <thead>
-                                    <tr style="text-align: center;">
+                                    <tr>
                                         <th>ID</th>
                                         <th>Nama Karyawan</th>
                                         <th>Jabatan Karyawan</th>
                                         <th></th>
                                     </tr>
                                 </thead>
+                                <tbody>
                                 @foreach($karyawan as $k)
                                 <tr>
                                     <td style="text-align: center;">{{ $k->id }}</td>
@@ -107,6 +108,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>

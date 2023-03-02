@@ -91,7 +91,6 @@ class ResourceKaryawanController extends Controller
         $karyawan->update($karyawan_data);
         return redirect('/karyawan');
     }
-    }
 
     /**
      * Remove the specified resource from storage.

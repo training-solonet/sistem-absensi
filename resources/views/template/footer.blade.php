@@ -2,7 +2,9 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website <script>document.write(new Date().getFullYear());</script></span>
+            <span>Copyright &copy; Your Website <script>
+                    document.write(new Date().getFullYear());
+                </script></span>
         </div>
     </div>
 </footer>
@@ -18,16 +20,23 @@
 <!-- Custom scripts for all pages-->
 <script src="/template/js/sb-admin-2.min.js"></script>
 <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/dt-1.13.3/datatables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script>
+<script>
+    $('[data-dismiss=modal]').on('click', function(e) {
+        var $t = $(this),
+            target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
 
-<script>$('[data-dismiss=modal]').on('click', function (e) {
-    var $t = $(this),
-        target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
-
-  $(target)
-    .find("input,textarea,select")
-       .val('')
-       .end()
-    .find("input[type=checkbox], input[type=radio]")
-       .prop("checked", "")
-       .end();
-})</script>
+        $(target)
+            .find("input,textarea,select")
+            .val('')
+            .end()
+            .find("input[type=checkbox], input[type=radio]")
+            .prop("checked", "")
+            .end();
+    })
+</script>
