@@ -20,12 +20,6 @@
 <!-- Custom scripts for all pages-->
 <script src="/template/js/sb-admin-2.min.js"></script>
 <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/v/bs4/dt-1.13.3/datatables.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
-</script>
 <script>
     $('[data-dismiss=modal]').on('click', function(e) {
         var $t = $(this),

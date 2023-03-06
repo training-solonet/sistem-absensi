@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="table table-stripped">
-                                <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="ajax-crud-datatable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr style="text-align: center;">
                                             <th>ID</th>

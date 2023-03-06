@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Karyawan;
 use App\Models\Jabatan;
+use DataTables;
 
 class ResourceKaryawanController extends Controller
 {
@@ -16,10 +17,21 @@ class ResourceKaryawanController extends Controller
      */
     public function index()
     {
-        //ORM
-        $jabatan = Jabatan::orderBy('nama_jabatan')->get();
-        $karyawan = Karyawan::with('jabatan')->get();
-        return view('data-karyawan', compact('jabatan', 'karyawan'));
+        // //ORM
+        // $jabatan = Jabatan::orderBy('nama_jabatan')->get();
+        // $karyawan = Karyawan::with('jabatan')->get();
+        // return view('data-karyawan', compact('jabatan', 'karyawan'));
+
+        //ajax javascript
+        if(request()->ajax()) {
+            //return datatables()->of(Company::select('*'))
+            return datatables()->of(Karyawan::with('jabatan')->get())
+            ->addColumn('action', 'karyawan-action')
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('data-karyawan');
     }
 
     /**
@@ -29,7 +41,9 @@ class ResourceKaryawanController extends Controller
      */
     public function create()
     {
-        //
+        // $karyawan = Karyawan::with('jabatan')->limit(100)->get();
+
+        // return DataTables::of($karyawan)->toJson();
     }
 
     /**
@@ -40,14 +54,28 @@ class ResourceKaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        // insert data ke table karyawan
-        Karyawan::create([
-            'nama_karyawan' => strtoupper($request->nama_karyawan),
-            'jabatan_id' => strtoupper($request->jabatan_id)
-        ]);
+        // // insert data ke table karyawan
+        // Karyawan::create([
+        //     'nama_karyawan' => strtoupper($request->nama_karyawan),
+        //     'jabatan_id' => strtoupper($request->jabatan_id)
+        // ]);
 
-        // alihkan halaman ke halaman karyawan
-        return redirect('/karyawan');
+        // // alihkan halaman ke halaman karyawan
+        // return redirect('/karyawan');
+
+        //ajax javascript
+        $karyawanId = $request->id;
+ 
+        $karyawan   =   Karyawan::updateOrCreate(
+                    [
+                     'id' => $karyawanId
+                    ],
+                    [
+                        'nama_karyawan' => strtoupper($request->nama_karyawan),
+                        'jabatan_id' => strtoupper($request->jabatan_id)
+                    ]);    
+                         
+        return Response()->json($karyawan);
     }
 
     /**
@@ -69,9 +97,14 @@ class ResourceKaryawanController extends Controller
      */
     public function edit($id)
     {
-        $karyawan = Karyawan::findorfail($id);
-        $jabatan = Jabatan::all();
-        return view('edit-karyawan', compact('karyawan', 'jabatan'));
+        // $karyawan = Karyawan::findorfail($id);
+        // $jabatan = Jabatan::all();
+        // return view('edit-karyawan', compact('karyawan', 'jabatan'));
+
+        //ajax javascript
+        $karyawan  = Karyawan::where($id)->first();
+      
+        return Response()->json($karyawan);
     }
 
     /**
@@ -83,13 +116,13 @@ class ResourceKaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $karyawan = Karyawan::findorfail($request->id);
-        $karyawan_data = [
-            'nama_karyawan' => strtoupper($request->nama_karyawan),
-            'jabatan_id' => strtoupper($request->jabatan_id)
-        ];
-        $karyawan->update($karyawan_data);
-        return redirect('/karyawan');
+        // $karyawan = Karyawan::findorfail($request->id);
+        // $karyawan_data = [
+        //     'nama_karyawan' => strtoupper($request->nama_karyawan),
+        //     'jabatan_id' => strtoupper($request->jabatan_id)
+        // ];
+        // $karyawan->update($karyawan_data);
+        // return redirect('/karyawan');
     }
 
     /**
@@ -100,10 +133,15 @@ class ResourceKaryawanController extends Controller
      */
     public function destroy($id)
     {
-        // menghapus data pegawai berdasarkan id yang dipilih
-        DB::table('karyawan')->where('id', $id)->delete();
+        // // menghapus data pegawai berdasarkan id yang dipilih
+        // DB::table('karyawan')->where('id', $id)->delete();
 
-        // alihkan halaman ke halaman pegawai
-        return redirect('/karyawan');
+        // // alihkan halaman ke halaman pegawai
+        // return redirect('/karyawan');
+
+        //ajax javascript
+        $karyawan = Karyawan::where('id',$id)->delete();
+      
+        return Response()->json($karyawan);
     }
 }
