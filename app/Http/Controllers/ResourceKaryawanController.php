@@ -18,20 +18,34 @@ class ResourceKaryawanController extends Controller
     public function index()
     {
         // //ORM
-        // $jabatan = Jabatan::orderBy('nama_jabatan')->get();
-        // $karyawan = Karyawan::with('jabatan')->get();
+        $jabatan = Jabatan::orderBy('nama_jabatan')->get();
+        //$karyawan = Karyawan::with('jabatan')->get();
+        //return $karyawan;
         // return view('data-karyawan', compact('jabatan', 'karyawan'));
 
         //ajax javascript
         if(request()->ajax()) {
             //return datatables()->of(Company::select('*'))
             return datatables()->of(Karyawan::with('jabatan')->get())
-            ->addColumn('action', 'karyawan-action')
+            ->addColumn('action', function($data) {
+                return '
+                    <center>
+                        <a href="javascript:void(0)" data-toggle="tooltip" onClick="editFunc('. $data->id .')" data-original-title="Edit"
+                            class="edit btn btn-warning">
+                            Edit
+                        </a>
+                        <a href="javascript:void(0);" id="delete-karyawan" onClick="deleteFunc('. $data->id .')" data-toggle="tooltip"
+                            data-original-title="Delete" class="delete btn btn-danger">
+                            Delete
+                        </a>
+                    </center>
+                ';
+            })
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-        return view('data-karyawan');
+        return view('data-karyawan', ['jabatan' => $jabatan]);
     }
 
     /**
@@ -64,11 +78,9 @@ class ResourceKaryawanController extends Controller
         // return redirect('/karyawan');
 
         //ajax javascript
-        $karyawanId = $request->id;
- 
         $karyawan   =   Karyawan::updateOrCreate(
                     [
-                     'id' => $karyawanId
+                     'id' => $request->id
                     ],
                     [
                         'nama_karyawan' => strtoupper($request->nama_karyawan),
@@ -102,8 +114,7 @@ class ResourceKaryawanController extends Controller
         // return view('edit-karyawan', compact('karyawan', 'jabatan'));
 
         //ajax javascript
-        $karyawan  = Karyawan::where($id)->first();
-      
+        $karyawan = Karyawan::with('jabatan')->where('id', $id)->first();
         return Response()->json($karyawan);
     }
 

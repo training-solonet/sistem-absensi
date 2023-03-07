@@ -20,6 +20,11 @@
 <!-- Custom scripts for all pages-->
 <script src="/template/js/sb-admin-2.min.js"></script>
 <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> 
 <script>
     $('[data-dismiss=modal]').on('click', function(e) {
         var $t = $(this),

@@ -68,6 +68,8 @@
                                             <form action="javascript:void(0)" id="KaryawanForm" name="KaryawanForm"
                                                 class="form-horizontal" method="POST" enctype="multipart/form-data">
                                                 @csrf
+                                                <input type="hidden" class="form-control" name="id"
+                                                id="id">
                                                 <div class="row mb-3">
                                                     <label for="nama_karyawan" class="col-sm-3 col-form-label">Nama
                                                         Karyawan</label>
@@ -81,11 +83,12 @@
                                                         class="col-sm-3 col-form-label">Jabatan</label>
                                                     <div class="col-sm-9">
                                                         <select id="jabatan_id" name="jabatan_id"
-                                                            class="form-control selectpicker" data-live-search="true">
+                                                            class="form-control" data-live-search="true">
                                                             <option selected disabled>--Pilih Kategori--</option>
-                                                            {{-- @foreach ($jabatan as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->nama_jabatan }}</option>
-                                                            @endforeach --}}
+                                                            @foreach ($jabatan as $data)
+                                                                <option value="{{ $data->id }}">
+                                                                    {{ $data->nama_jabatan }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -102,13 +105,19 @@
                             </div>
                         </div>
                         <div class="table table-stripped">
-                            
+
                             <table class="table table-bordered" id="ajax-crud-datatable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th><center>ID</center></th>
-                                        <th><center>Nama Karyawan</center></th>
-                                        <th><center>Jabatan Karyawan</center></th>
+                                        <th>
+                                            <center>ID</center>
+                                        </th>
+                                        <th>
+                                            <center>Nama Karyawan</center>
+                                        </th>
+                                        <th>
+                                            <center>Jabatan Karyawan</center>
+                                        </th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -187,7 +196,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            // javascript untuk reload isi dataTable karyawan
             table = $('#ajax-crud-datatable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -226,15 +235,13 @@
             table.ajax.reload(null, false);
         }
 
-        //berisi kode yang diberikan dan menampilkan modal Tmabah data karyawan
+        //berisi kode yang diberikan dan menampilkan modal Tambah data karyawan
         function add() {
             $('#KaryawanForm').trigger("reset");
             $('#KaryawanModal').html("Tambah Data Karyawan");
             $('#karyawan-modal').modal('show');
             $('#id').val('');
-            $('#jabatan_id').html("");
-            $('[name="jabatan_id"]').selectpicker('val', [0]);
-            // table.draw();
+            table.draw();
         }
 
         //berisi kode yang diberikan dan menampilkan modal edit data karyawan dengan detail karyawan
@@ -242,17 +249,18 @@
             //Ajax Load data from ajax
             $.ajax({
                 type: "GET",
-                url: "karyawan/" + id,
+                url: "karyawan/" + id + "/edit",
                 data: {
                     id: id
                 },
                 dataType: 'json',
                 success: function(res) {
+                    console.log(res);
                     $('#KaryawanModal').html("Edit Data Karyawan");
                     $('#karyawan-modal').modal('show');
                     $('#id').val(res.id);
                     $('#nama_karyawan').val(res.nama_karyawan);
-                    $('#jabatan_id').val(res.jabatan.nama_jabatan);
+                    $('#jabatan_id').val(res.jabatan_id);
                 }
             });
         }
@@ -269,26 +277,28 @@
                     },
                     dataType: 'json',
                     success: function(res) {
-                        // 
+                        reload_table();
+                        alert("data berhasil dihapus !");
                     }
                 });
             }
         }
-        $('#CompanyForm').submit(function(e) {
+
+        $('#KaryawanForm').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
                 type: 'POST',
-                url: "{{ url('store-karyawan') }}",
+                url: "{{ route('karyawan.store') }}",
                 data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                    $("#karyawan-modal").modal('hide');
-                    // 
-                    $("#btn-save").html('Submit');
-                    $("#btn-save").attr("disabled", false);
+                    console.log(data);
+                    $('#karyawan-modal').modal('hide');
+                    reload_table();
+                    alert("data berhasil disimpan !");
                 },
                 error: function(data) {
                     console.log(data);
@@ -296,7 +306,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>
